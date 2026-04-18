@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="cupcake">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plugg — en tjänst från CP-Tjänst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Fira Sans"', 'system-ui', 'sans-serif'],
+          mono: ['"Fira Mono"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html, body { font-family: "Fira Sans", system-ui, sans-serif; }
+  code, pre, kbd, samp, .font-mono { font-family: "Fira Mono", monospace; }
+  .fade-in { animation: fade .25s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .bar { transition: height .6s cubic-bezier(.2,.8,.2,1); }
+</style>
+</head>
+<body class="min-h-screen bg-base-200">
+
+<div class="navbar bg-base-100 shadow-sm sticky top-0 z-10">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl font-bold tracking-tight" onclick="showMenu()">Plugg</a>
+  </div>
+</div>
+
+<!-- MENU VIEW -->
+<section id="menuView" class="hero min-h-[80vh] fade-in">
+  <div class="hero-content text-center">
+    <div class="max-w-xl">
+      <h1 class="text-6xl font-bold tracking-tight">PLUGG</h1>
+      <p class="py-2 text-lg opacity-70">en tjänst från CP-Tjänst</p>
+      <p class="py-4">Förberedande test för yrkeshögskola — 10 slumpmässiga frågor per omgång. Välj ämne:</p>
+
+      <div class="grid md:grid-cols-2 gap-4 mt-6">
+        <button class="btn btn-primary btn-lg h-28 text-2xl" onclick="startQuiz('math')">
+          Matematik
+        </button>
+        <button class="btn btn-secondary btn-lg h-28 text-2xl" onclick="startQuiz('swedish')">
+          Svenska
+        </button>
+      </div>
+
+      <div id="menuStats" class="stats stats-vertical md:stats-horizontal shadow mt-8 w-full"></div>
+
+      <p class="text-sm opacity-60 mt-6">
+        Matematiken motsvarar grundskolans åk 9. Ordkunskapen är i högskoleprovsstil.
+        All historik sparas lokalt i din webbläsare.
+      </p>
+      <button id="resetBtn" class="btn btn-ghost btn-xs mt-2" onclick="resetHistory()">Rensa historik</button>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ VIEW -->
+<section id="quizView" class="hidden p-4 max-w-2xl mx-auto fade-in">
+  <div class="flex items-center justify-between mb-4">
+    <button class="btn btn-ghost btn-sm" onclick="backToMenu()">← Tillbaka till meny</button>
+    <span id="subjectBadge" class="badge badge-lg"></span>
+  </div>
+
+  <div class="flex items-center gap-3 mb-3">
+    <span id="progressLabel" class="text-sm font-medium whitespace-nowrap"></span>
+    <progress id="progressBar" class="progress progress-primary flex-1" value="0" max="10"></progress>
+  </div>
+
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title" id="questionNumber"></h2>
+      <p class="text-lg whitespace-pre-wrap" id="questionText"></p>
+      <div id="options" class="flex flex-col gap-3 mt-2"></div>
+      <div id="feedback" class="mt-3"></div>
+      <div class="card-actions justify-end mt-4">
+        <button id="nextBtn" class="btn btn-primary" disabled onclick="nextQuestion()">Nästa →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY VIEW -->
+<section id="summaryView" class="hidden p-4 max-w-3xl mx-auto fade-in">
+  <h1 class="text-4xl font-bold text-center mb-2">Resultat</h1>
+  <p id="summarySubtitle" class="text-center opacity-70 mb-6"></p>
+
+  <div class="grid md:grid-cols-2 gap-6 items-start">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body items-center text-center">
+        <h2 class="card-title">Poäng</h2>
+        <div id="radial" class="radial-progress text-success my-4" style="--value:0; --size:11rem; --thickness:12px;" aria-valuenow="0" role="progressbar">
+          <span class="text-3xl font-bold">0%</span>
+        </div>
+        <div id="summaryStats" class="stats stats-vertical shadow w-full"></div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Rätt vs fel</h2>
+        <div class="flex items-end justify-around h-56 border-b-2 border-base-300 pt-4">
+          <div class="flex flex-col items-center justify-end h-full w-24">
+            <span id="correctCount" class="font-bold text-lg mb-1">0</span>
+            <div id="correctBar" class="bar w-full bg-success rounded-t-lg" style="height:0%"></div>
+            <span class="mt-2 text-sm font-medium">Rätt ✓</span>
+          </div>
+          <div class="flex flex-col items-center justify-end h-full w-24">
+            <span id="wrongCount" class="font-bold text-lg mb-1">0</span>
+            <div id="wrongBar" class="bar w-full bg-error rounded-t-lg" style="height:0%"></div>
+            <span class="mt-2 text-sm font-medium">Fel ✗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card-body">
+      <h2 class="card-title">Genomgång</h2>
+      <div id="reviewList" class="flex flex-col gap-3"></div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-3 justify-center mt-6">
+    <button class="btn btn-primary btn-lg" onclick="startQuiz(currentSubject)">Ny omgång</button>
+    <button class="btn btn-ghost btn-lg" onclick="showMenu()">Till meny</button>
+  </div>
+</section>
+
+<footer class="text-center text-sm opacity-60 py-6">
+  Plugg — en tjänst från <span class="font-semibold">CP-Tjänst</span>
+</footer>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
