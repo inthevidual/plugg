@@ -4,6 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plugg — en tjänst från CP-Tjänst</title>
+<meta name="description" content="Förberedande test för yrkeshögskola — matematik och svenska i högskoleprovsstil. 10 slumpmässiga frågor per omgång.">
+
+<!-- Favicons -->
+<link rel="icon" href="/plugg.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="shortcut icon" href="/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#65c3c8">
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Plugg">
+<meta property="og:title" content="Plugg — en tjänst från CP-Tjänst">
+<meta property="og:description" content="Förberedande test för yrkeshögskola — matematik och svenska.">
+<meta property="og:url" content="https://plugg.cptjanst.se/">
+<meta property="og:image" content="https://plugg.cptjanst.se/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Plugg — en tjänst från CP-Tjänst">
+<meta name="twitter:description" content="Förberedande test för yrkeshögskola.">
+<meta name="twitter:image" content="https://plugg.cptjanst.se/icons/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,7 +58,10 @@
 
 <div class="navbar bg-base-100 shadow-sm sticky top-0 z-10">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl font-bold tracking-tight" onclick="showMenu()">Plugg</a>
+    <a class="btn btn-ghost text-xl font-bold tracking-tight gap-2" onclick="showMenu()">
+      <img src="/plugg.svg" alt="" class="w-7 h-7" aria-hidden="true">
+      Plugg
+    </a>
   </div>
 </div>
 
@@ -41,6 +69,7 @@
 <section id="menuView" class="hero min-h-[80vh] fade-in">
   <div class="hero-content text-center">
     <div class="max-w-xl">
+      <img src="/plugg.svg" alt="" class="w-32 h-32 mx-auto mb-4" aria-hidden="true">
       <h1 class="text-6xl font-bold tracking-tight">PLUGG</h1>
       <p class="py-2 text-lg opacity-70">en tjänst från CP-Tjänst</p>
       <p class="py-4">Förberedande test för yrkeshögskola — 10 slumpmässiga frågor per omgång. Välj ämne:</p>
