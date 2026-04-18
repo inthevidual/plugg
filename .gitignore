@@ -1,3 +1,4 @@
 .nginx/
 nginx.conf
 .claude/
+node_modules/

@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="sv" data-theme="cupcake">
+<html lang="sv" data-theme="garden">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plugg — en tjänst från CP-Tjänst</title>
 <meta name="description" content="Förberedande test för yrkeshögskola — matematik och svenska i högskoleprovsstil. 10 slumpmässiga frågor per omgång.">
 
-<!-- Favicons -->
 <link rel="icon" href="/plugg.svg" type="image/svg+xml">
 <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="shortcut icon" href="/icons/favicon.ico">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#65c3c8">
+<meta name="theme-color" content="#5C7F67">
 
-<!-- Open Graph / social -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Plugg">
 <meta property="og:title" content="Plugg — en tjänst från CP-Tjänst">
@@ -30,138 +28,153 @@
 <meta name="twitter:image" content="https://plugg.cptjanst.se/icons/og-image.png">
 
 <link rel="stylesheet" href="/fonts/fira.css">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['"Fira Sans"', 'system-ui', 'sans-serif'],
-          mono: ['"Fira Mono"', 'monospace'],
-        },
-      },
-    },
-  };
-</script>
-<style>
-  html, body { font-family: "Fira Sans", system-ui, sans-serif; }
-  code, pre, kbd, samp, .font-mono { font-family: "Fira Mono", monospace; }
-  .fade-in { animation: fade .25s ease-out; }
-  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .bar { transition: height .6s cubic-bezier(.2,.8,.2,1); }
-</style>
+<link rel="stylesheet" href="/dist/tailwind.css">
 </head>
 <body class="min-h-screen bg-base-200">
 
-<div class="navbar bg-base-100 shadow-sm sticky top-0 z-10">
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl font-bold tracking-tight gap-2" onclick="showMenu()">
+<header class="navbar bg-base-100/80 backdrop-blur shadow-sm sticky top-0 z-30 border-b border-base-300">
+  <div class="flex-1 max-w-6xl mx-auto w-full px-2">
+    <a class="btn btn-ghost normal-case text-xl font-bold tracking-tight gap-2" onclick="showMenu()">
       <img src="/plugg.svg" alt="" class="w-7 h-7" aria-hidden="true">
       Plugg
     </a>
+    <span class="ml-2 text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-semibold">v1.0</span>
   </div>
-</div>
+</header>
 
 <!-- MENU VIEW -->
-<section id="menuView" class="hero min-h-[80vh] fade-in">
-  <div class="hero-content text-center">
-    <div class="max-w-xl">
-      <img src="/plugg.svg" alt="" class="w-32 h-32 mx-auto mb-4" aria-hidden="true">
-      <h1 class="text-6xl font-bold tracking-tight">PLUGG</h1>
-      <p class="py-2 text-lg opacity-70">en tjänst från CP-Tjänst</p>
-      <p class="py-4">Förberedande test för yrkeshögskola — 10 slumpmässiga frågor per omgång. Välj ämne:</p>
+<section id="menuView" class="bg-garden-hero fade-in">
+  <div class="max-w-4xl mx-auto px-4 py-12 md:py-20 text-center">
+    <img src="/plugg.svg" alt="" class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-6 drop-shadow-sm" aria-hidden="true">
+    <h1 class="text-6xl md:text-7xl font-bold tracking-tight text-base-content">PLUGG</h1>
+    <p class="mt-2 text-lg md:text-xl text-base-content/60">en tjänst från <span class="font-semibold text-base-content/80">CP-Tjänst</span></p>
+    <p class="mt-6 text-base md:text-lg text-base-content/70 max-w-xl mx-auto">
+      Förberedande test för yrkeshögskola. 10 slumpmässiga frågor per omgång — välj ämne nedan.
+    </p>
 
-      <div class="grid md:grid-cols-2 gap-4 mt-6">
-        <button class="btn btn-primary btn-lg h-28 text-2xl" onclick="startQuiz('math')">
-          Matematik
-        </button>
-        <button class="btn btn-secondary btn-lg h-28 text-2xl" onclick="startQuiz('swedish')">
-          Svenska
-        </button>
-      </div>
+    <div class="grid md:grid-cols-2 gap-5 mt-10">
+      <button class="lift group card bg-base-100 border border-base-300 shadow-md hover:shadow-xl hover:border-primary text-left overflow-hidden"
+              onclick="startQuiz('math')">
+        <div class="card-body">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center text-2xl font-bold">∑</div>
+            <h2 class="card-title text-2xl">Matematik</h2>
+          </div>
+          <p class="opacity-70 mt-1">Åk 9-nivå: algebra, geometri, procent, statistik, problemlösning.</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-sm opacity-60">150 frågor</span>
+            <span class="text-primary font-semibold group-hover:translate-x-1 transition-transform">Starta →</span>
+          </div>
+        </div>
+      </button>
 
-      <div id="menuStats" class="stats stats-vertical md:stats-horizontal shadow mt-8 w-full"></div>
-
-      <button id="resetBtn" class="btn btn-ghost btn-xs mt-6" onclick="resetHistory()">Rensa historik</button>
+      <button class="lift group card bg-base-100 border border-base-300 shadow-md hover:shadow-xl hover:border-secondary text-left overflow-hidden"
+              onclick="startQuiz('swedish')">
+        <div class="card-body">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center text-2xl font-bold">Sv</div>
+            <h2 class="card-title text-2xl">Svenska</h2>
+          </div>
+          <p class="opacity-70 mt-1">HP-nivå ordkunskap, grammatik, läsförståelse och idiom.</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-sm opacity-60">150 frågor</span>
+            <span class="text-secondary font-semibold group-hover:translate-x-1 transition-transform">Starta →</span>
+          </div>
+        </div>
+      </button>
     </div>
+
+    <div id="menuStats" class="grid md:grid-cols-2 gap-4 mt-10"></div>
+
+    <button id="resetBtn" class="btn btn-ghost btn-xs mt-8 opacity-60 hover:opacity-100" onclick="resetHistory()">Rensa historik</button>
   </div>
 </section>
 
 <!-- QUIZ VIEW -->
-<section id="quizView" class="hidden p-4 max-w-2xl mx-auto fade-in">
-  <div class="flex items-center justify-between mb-4">
-    <button class="btn btn-ghost btn-sm" onclick="backToMenu()">← Tillbaka till meny</button>
-    <span id="subjectBadge"></span>
-  </div>
+<section id="quizView" class="hidden fade-in">
+  <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="flex items-center justify-between mb-5">
+      <button class="btn btn-ghost btn-sm" onclick="backToMenu()">← Till meny</button>
+      <span id="subjectBadge"></span>
+    </div>
 
-  <div class="flex items-center gap-3 mb-3">
-    <span id="progressLabel" class="text-sm font-medium whitespace-nowrap"></span>
-    <progress id="progressBar" class="progress progress-primary flex-1" value="0" max="10"></progress>
-  </div>
+    <div class="mb-4">
+      <div class="flex items-center justify-between mb-1.5 text-sm font-medium">
+        <span id="progressLabel" class="opacity-80"></span>
+        <span id="progressPercent" class="opacity-50 tabular-nums"></span>
+      </div>
+      <progress id="progressBar" class="progress progress-primary w-full h-2" value="0" max="10"></progress>
+    </div>
 
-  <div class="card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title" id="questionNumber"></h2>
-      <p class="text-lg whitespace-pre-wrap" id="questionText"></p>
-      <div id="options" class="flex flex-col gap-3 mt-2"></div>
-      <div id="feedback" class="mt-3"></div>
-      <div class="card-actions justify-end mt-4">
-        <button id="nextBtn" class="btn btn-primary" disabled onclick="nextQuestion()">Nästa →</button>
+    <div class="card bg-base-100 border border-base-300 shadow-lg">
+      <div class="card-body">
+        <p class="text-xs uppercase tracking-widest opacity-50 font-semibold" id="questionNumber"></p>
+        <h2 class="text-xl md:text-2xl font-semibold leading-snug mt-1 whitespace-pre-wrap" id="questionText"></h2>
+        <div id="options" class="flex flex-col gap-3 mt-5"></div>
+        <div id="feedback" class="mt-4"></div>
+        <div class="card-actions justify-end mt-5">
+          <button id="nextBtn" class="btn btn-primary btn-wide" disabled onclick="nextQuestion()">Nästa →</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SUMMARY VIEW -->
-<section id="summaryView" class="hidden p-4 max-w-3xl mx-auto fade-in">
-  <h1 class="text-4xl font-bold text-center mb-2">Resultat</h1>
-  <p id="summarySubtitle" class="text-center opacity-70 mb-6"></p>
+<section id="summaryView" class="hidden fade-in">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <p id="summaryKicker" class="text-sm uppercase tracking-widest opacity-60 font-semibold"></p>
+      <h1 class="text-4xl md:text-5xl font-bold mt-2">Resultat</h1>
+      <p id="summarySubtitle" class="opacity-60 mt-1"></p>
+    </div>
 
-  <div class="grid md:grid-cols-2 gap-6 items-start">
-    <div class="card bg-base-100 shadow-xl">
-      <div class="card-body items-center text-center">
-        <h2 class="card-title">Poäng</h2>
-        <div id="radial" class="radial-progress text-success my-4" style="--value:0; --size:11rem; --thickness:12px;" aria-valuenow="0" role="progressbar">
-          <span class="text-3xl font-bold">0%</span>
+    <div class="grid md:grid-cols-2 gap-6 items-stretch">
+      <div class="card bg-base-100 border border-base-300 shadow-lg">
+        <div class="card-body items-center text-center">
+          <h2 class="card-title">Poäng</h2>
+          <div id="radial" class="radial-progress text-success my-4" style="--value:0; --size:11rem; --thickness:14px;" aria-valuenow="0" role="progressbar">
+            <span class="text-3xl font-bold tabular-nums">0%</span>
+          </div>
+          <p id="scoreMessage" class="font-medium text-lg"></p>
+          <p id="scoreText" class="opacity-60 mt-1"></p>
         </div>
-        <div id="summaryStats" class="stats stats-vertical shadow w-full"></div>
+      </div>
+
+      <div class="card bg-base-100 border border-base-300 shadow-lg">
+        <div class="card-body">
+          <h2 class="card-title">Rätt vs fel</h2>
+          <div class="flex items-end justify-around h-56 border-b-2 border-base-300 pt-4 mt-2">
+            <div class="flex flex-col items-center justify-end h-full w-24">
+              <span id="correctCount" class="font-bold text-lg mb-1 tabular-nums">0</span>
+              <div id="correctBar" class="bar w-full bg-success rounded-t-lg" style="height:0%"></div>
+              <span class="mt-2 text-sm font-medium">Rätt</span>
+            </div>
+            <div class="flex flex-col items-center justify-end h-full w-24">
+              <span id="wrongCount" class="font-bold text-lg mb-1 tabular-nums">0</span>
+              <div id="wrongBar" class="bar w-full bg-error rounded-t-lg" style="height:0%"></div>
+              <span class="mt-2 text-sm font-medium">Fel</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card bg-base-100 shadow-xl">
+    <div class="card bg-base-100 border border-base-300 shadow-lg mt-6">
       <div class="card-body">
-        <h2 class="card-title">Rätt vs fel</h2>
-        <div class="flex items-end justify-around h-56 border-b-2 border-base-300 pt-4">
-          <div class="flex flex-col items-center justify-end h-full w-24">
-            <span id="correctCount" class="font-bold text-lg mb-1">0</span>
-            <div id="correctBar" class="bar w-full bg-success rounded-t-lg" style="height:0%"></div>
-            <span class="mt-2 text-sm font-medium">Rätt ✓</span>
-          </div>
-          <div class="flex flex-col items-center justify-end h-full w-24">
-            <span id="wrongCount" class="font-bold text-lg mb-1">0</span>
-            <div id="wrongBar" class="bar w-full bg-error rounded-t-lg" style="height:0%"></div>
-            <span class="mt-2 text-sm font-medium">Fel ✗</span>
-          </div>
-        </div>
+        <h2 class="card-title">Genomgång</h2>
+        <div id="reviewList" class="flex flex-col gap-3 mt-2"></div>
       </div>
     </div>
-  </div>
 
-  <div class="card bg-base-100 shadow-xl mt-6">
-    <div class="card-body">
-      <h2 class="card-title">Genomgång</h2>
-      <div id="reviewList" class="flex flex-col gap-3"></div>
+    <div class="flex flex-wrap gap-3 justify-center mt-8">
+      <button class="btn btn-primary btn-lg" onclick="startQuiz(currentSubject)">Ny omgång</button>
+      <button class="btn btn-ghost btn-lg" onclick="showMenu()">Till meny</button>
     </div>
-  </div>
-
-  <div class="flex flex-wrap gap-3 justify-center mt-6">
-    <button class="btn btn-primary btn-lg" onclick="startQuiz(currentSubject)">Ny omgång</button>
-    <button class="btn btn-ghost btn-lg" onclick="showMenu()">Till meny</button>
   </div>
 </section>
 
-<footer class="text-center text-sm opacity-60 py-6">
+<footer class="text-center text-sm opacity-60 py-8 border-t border-base-300 mt-8 bg-base-100/50">
   Plugg v1.0 — en tjänst från <span class="font-semibold">CP-Tjänst</span>
 </footer>
 
