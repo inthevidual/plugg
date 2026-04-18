@@ -104,7 +104,7 @@ function startQuiz(subject) {
   currentIndex = 0;
   sessionResults = [];
   document.getElementById('subjectBadge').textContent = subject === 'math' ? 'Matematik' : 'Svenska';
-  document.getElementById('subjectBadge').className = 'badge badge-lg ' + (subject === 'math' ? 'badge-primary' : 'badge-secondary');
+  document.getElementById('subjectBadge').className = 'badge badge-lg badge-outline font-medium ' + (subject === 'math' ? 'badge-primary' : 'badge-secondary');
   showView('quizView');
   renderQuestion();
 }
@@ -244,8 +244,8 @@ function finishQuiz() {
   const reviewList = document.getElementById('reviewList');
   reviewList.innerHTML = sessionResults.map((r, i) => {
     const icon = r.correctBool
-      ? '<span class="badge badge-success gap-2">✓ Rätt</span>'
-      : '<span class="badge badge-error gap-2">✗ Fel</span>';
+      ? '<span class="badge badge-outline badge-success font-semibold gap-1">✓ Rätt</span>'
+      : '<span class="badge badge-outline badge-error font-semibold gap-1">✗ Fel</span>';
     const chosen = r.correctBool
       ? ''
       : `<div class="text-sm text-error mt-1">Ditt svar: ${String.fromCharCode(65 + r.chosen)}. ${r.options[r.chosen]}</div>`;
