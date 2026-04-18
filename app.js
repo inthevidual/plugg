@@ -104,7 +104,7 @@ function startQuiz(subject) {
   currentIndex = 0;
   sessionResults = [];
   document.getElementById('subjectBadge').textContent = subject === 'math' ? 'Matematik' : 'Svenska';
-  document.getElementById('subjectBadge').className = 'badge badge-lg badge-outline font-medium ' + (subject === 'math' ? 'badge-primary' : 'badge-secondary');
+  document.getElementById('subjectBadge').className = 'inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold ring-1 ' + (subject === 'math' ? 'bg-primary/15 text-primary ring-primary/40' : 'bg-secondary/15 text-secondary ring-secondary/40');
   showView('quizView');
   renderQuestion();
 }
